@@ -52,4 +52,7 @@ Celebrity.create(celebrities)
     console.error('Error while seeding the database', err);
 });
 
+
+
 // to run the seeds $node bin/seeds.js
+

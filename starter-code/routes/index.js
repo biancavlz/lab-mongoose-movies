@@ -37,6 +37,8 @@ router.post('/celebrities/new', (req, res) => {
   });
 });
 
+//this route should be at the end, in otherwise will change the behaviour
+// due to the :celebrityId
 router.get('/celebrities/:celebrityId', (req, res) => {
   const _id = req.params.celebrityId;
   Celebrity.findOne({ _id })
@@ -46,7 +48,21 @@ router.get('/celebrities/:celebrityId', (req, res) => {
     })
     .catch(err => {
       console.error('Error while retrieving celebrity with id ' + _id, err);
+      next()
   });
 });
+
+router.post('/celebrities/:celebrityId/delete', (req, res, next) => {
+  const celebrityId = req.params.celebrityId;
+  Celebrity.findOneAndDelete({ _id: celebrityId })
+    .then(celebrity => {
+      console.log(celebrity)
+      res.redirect('/celebrities/');
+    })
+    .catch(err => {
+      console.error('Error while retrieving celebrity with id ' + celebrityId, err);
+      next()
+  });
+})
 
 module.exports = router;

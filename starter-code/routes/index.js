@@ -15,7 +15,8 @@ router.get('/celebrities/', (req, res) => {
     })
     .catch(err => {
       console.error('Error while finding the celebrities', err)
-      res.render('index');
+      next(); //middleware, executes the next code
+      // res.render('index');
   })
 })
 
@@ -47,8 +48,5 @@ router.get('/celebrities/:celebrityId', (req, res) => {
       console.error('Error while retrieving celebrity with id ' + _id, err);
   });
 });
-
-
-
 
 module.exports = router;
